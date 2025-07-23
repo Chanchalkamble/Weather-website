@@ -150,7 +150,10 @@ input#city {
 
   input#city {
     font-size: 0.9rem;
-    width: 55%;
+    width: 53%;
+  }
+  #date{
+    font-size: 10px;
   }
 }
 
@@ -162,14 +165,14 @@ input#city {
 
   input#city {
     top: 0.8rem;
-    right: 1rem;
-    width: 60%;
+    right: 0.2rem;
+    width: 53%;
     font-size: 0.9rem;
   }
 
   .date {
     top: 0.8rem;
-    font-size: 0.9rem;
+    font-size: 0.5rem;
   }
 
   #location, #humidity, #cond {
