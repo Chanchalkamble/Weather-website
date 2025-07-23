@@ -1,209 +1,54 @@
-l<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+    <title>Weather-Website</title>
 </head>
-<style>
-    body{
-        background-color: #432E54;
-    }
-    .container{
-        background-color: #4B4376;
-        border-radius:10px;
-        height:500px;
-        width:900px;
-        position:absolute;
-        top:100px;
-        left:300px;
-        box-shadow: 5px 5px 5px 5px rgba(41, 33, 33, 0.505),
-        inset 2px 3px 0px 0px rgba(41, 33, 33, 0.505);
-    }
-    img{
-        position: absolute;
-        top:20px;
-        left:20px;
-        width:100px;
-        height:100px;
-    }
-    
-    input{
-        position: absolute;
-        height:50px;
-        text-align: center;
-        font-size: x-large;
-        left:35%;
-        top:20px;
-        width:200px;
-        border: 3px solid black;
-        outline: none;
-    }
-    #output{
-        position: absolute;
-        font-size: xx-large;
-        top:250px;
-        left:46%;
-        color:white
-    }
-    
-    button{
-        position: absolute;
-        background-color: rgba(255, 217, 0, 0.588);
-        color: white;
-        box-shadow: 5px 5px 5px rgb(80, 78, 78);
-        left:60%;
-        top:30px;
-        font-size: x-large;
-    }
-    #location{
-        position: absolute;
-        color: #12dacd;
-        font-size: 20px;
-        font-weight: 800;
-        top:100px;
-        left:40%
-    }
-    #date{
-        position: absolute;
-        color: #0adbcd;
-        font-size: 20px;
-        font-weight: 800;
-        top:130px;
-        left:40%
-
-    }
-    hr{
-        position:relative;
-        width:860px;
-        left:3px;
-        top:200px;
-    }
-    #second-line{
-        position:relative;
-        width:860px;
-        left:3px;
-        top:300px;
-    }
-    .wheather{
-        font-size: x-large;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        color:#E8BCB9;
-        font-weight: 500; 
-        position: absolute;
-        top:220px;
-        left:90px;
-        right:20px;
- 
-    }
-    #temperature{
-        position: fixed;
-        top:370px;
-        left:430px;
-    }
-    .cond{
-        position: fixed;
-        left:700px;
-    }
-    #cond{
-        position: fixed;
-        left:720px;
-        top:370px;
-
-
-    }
-    .humidity{
-        position: fixed;
-        left:1000px;
-
-    }
-    #humidity{
-        position: fixed;
-        left:1040px;
-        top:370px;
-    }
-    .ot{
-        position: absolute;
-        font-weight: 500; 
-        position: absolute;
-        top:90px;
-        left:90px;
-        right:20px;
-    }
-    p{
-        font-size: xx-large;
-        position: fixed;
-        text-align: center;
-        top:440px;
-        left:40%;
-        color:#73EC8B;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
-    #result{
-        font-size: xx-large;
-        position: fixed;
-        text-align: center;
-        top:530px;
-        left:40%;
-        color:red;
-        font-weight: 700;
-        text-transform: uppercase;
-
-    }
-</style>
 <body>
     <div class="container">
-        <img src="whwther logo.jpeg">
-            <input id="city" placeholder="Find your city...">
-        <div id="location">Enter a location</div>
-        <div id="date">current date</div>
-        <button onclick="check()">Check</button>
-        <hr>
-        <!-- for our output -->
-        <div class="wheather">
-            <span>Temperature</span>
-            <span id="temperature" class="ot"></span>
-            <span class="cond" >Condition</span>
-            <span id="cond" class="ot"></span>
-            <span class="humidity">Humidity</span>
-            <span id="humidity" class="ot"></span>
-        </div>
-       <hr id="second-line">
-       <div id="result"></div>
-        <p>have a good day !</p>
+        <div class="date"></div>
+        <input id="city" placeholder="search city..">
+<div id="location"></div>
+        <div id="cond"></div>
+        <div id="humidity"></div>
+        <div id="wind"></div>
+        <div id="temperature"></div>
+        
+        <div class="forecast">
+  <div class="hourly-container">
+
+
+    <div class="hour-block">
+      <div class="hour-time"></div>
+  <div class="hour-emoji"></div> <!-- emoji will go here -->
+      <div class="hour-temp"></div>
     </div>
-    <script>
-         async function check(){
-            const cityname= document.getElementById('city').value
-           const temperature= document.getElementById('temperature');
-           const cond= document.getElementById('cond');
-           const humidity= document.getElementById('humidity')
-            const apikey='8041c8cb8d527b58717a7d216e502ade';
-            const apiurl=`https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=${apikey}&units=metric`;
-                try{
-                    const response= await fetch(apiurl);
-                    if(!response.ok) throw new Error('city not found')
-                 const data = await response.json();
-                document.getElementById('temperature').innerHTML= `${data.main.temp}°C`;
-                document.getElementById('cond').innerHTML=`${data.weather[0].description}`;
-                document.getElementById('humidity').innerHTML=`${data.main.humidity}%`;
-                document.getElementById('location').innerHTML = `${data.name}, ${data.sys.country}`;
-                }catch(error){
-                    document.getElementById('result').innerHTML=`${error.message}`
-                }
-                //for date
-               //month name
-                var monthNames = [ "January", "February", "March", "April", "May", "June",
-           "July", "August", "September", "October", "November", "December" ];
-         //dayname 
-                var dayNames= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-                //current date
-                var today = new Date();
-                document.getElementById('date').innerHTML = (dayNames[today.getDay()] + " " + 
-                today.getDate() + ' ' + monthNames[today.getMonth()] + ' ' +today.getFullYear());
-        }
-         
-    </script>
+    <div class="hour-block">
+      <div class="hour-time"></div>
+  <div class="hour-emoji"></div> <!-- emoji will go here -->
+      <div class="hour-temp"></div>
+    </div>
+    <div class="hour-block">
+      <div class="hour-time"></div>
+  <div class="hour-emoji"></div> <!-- emoji will go here -->
+      <div class="hour-temp"></div>
+    </div>
+    <div class="hour-block">
+      <div class="hour-time"></div>
+  <div class="hour-emoji"></div> <!-- emoji will go here -->
+      <div class="hour-temp"></div>
+    </div>
+    <div class="hour-block">
+      <div class="hour-time"></div>
+  <div class="hour-emoji"></div> <!-- emoji will go here -->
+      <div class="hour-temp"></div>
+    </div>
+  </div>
+</div>
+
+    </div>
+    <script src="/script.js"></script>
 </body>
 </html>
